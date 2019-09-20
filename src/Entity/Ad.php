@@ -1,56 +1,64 @@
 <?php
 
-
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
+ */
 class Ad
 {
+    const STATUS_PUBLISHED = 'published';
+    const STATUS_STOPPED = 'stopped';
+    const STATUS_PUBLISHING = 'publishing';
+
     /**
-     * @var int
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
-     * @var string
+     * @Assert\NotBlank(message="This field is required")
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
+
     /**
-     * @var Collection
+     * @ORM\OneToMany(targetEntity="App\Entity\Component", mappedBy="ad", cascade={"persist"})
      */
     private $components;
 
-    public function __construct(
-        string $name
-    ) {
-        $this->name = $name;
-
-        $this->components = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $status;
 
     /**
-     * @return int
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    public function id()
-    {
-        return $this->id;
-    }
+    private $updatedAt;
 
     /**
-     * @return string
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    public function name()
-    {
-        return $this->name;
-    }
+    private $createdAt;
 
     /**
-     * @return Collection
+     *
+     * Events
      */
-    public function components(): Collection
-    {
-        return $this->components;
+    /** @ORM\PrePersist */
+    function onPrePersist() {
+        //using Doctrine DateTime here
+        $this->createdAt = new \DateTime();
+    }
+
+    /** @ORM\PreUpdate */
+    function onPreUpdate($args) {
+        $this->updateAt = new \DateTime();
     }
 }
