@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +29,16 @@ class Ad
     private $name;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Advertiser", inversedBy="advertiser")
+     */
+    protected $advertiser;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publisher", mappedBy="publishers")
+     */
+    private $publishers;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Component", mappedBy="ad", cascade={"persist"})
      */
     private $components;
@@ -46,6 +57,10 @@ class Ad
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+
+    public function __construct() {
+        $this->publishers = new ArrayCollection();
+    }
 
     /**
      *
