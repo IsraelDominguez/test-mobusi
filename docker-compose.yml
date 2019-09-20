@@ -21,3 +21,13 @@ database:
     - MYSQL_PASSWORD=sunmedia
   ports:
     - "3306:3306"
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+    - database
+  environment:
+    PMA_HOST: database
+    PMA_PORT: 3306
+  ports:
+    - '8080:80'
