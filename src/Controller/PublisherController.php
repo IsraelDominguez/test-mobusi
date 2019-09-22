@@ -16,22 +16,6 @@ class PublisherController extends AbstractController
     use jsonResponseTrait;
 
     /**
-    * @Route("/publisher", name="publisher")
-    */
-    public function index()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $publisher = new Publisher();
-        $publisher->setName('Antonio');
-        $entityManager->persist($publisher);
-        $entityManager->flush();
-
-        return new Response('Saved new Publisher with id '.$publisher->getId());
-
-    }
-
-    /**
      * @Route("/publisher/{id}", name="show_publisher", methods={"GET"})
      */
     public function show(int $id)
@@ -47,7 +31,7 @@ class PublisherController extends AbstractController
                 );
             }
 
-            return $this->jsonOk($publisher, Response::HTTP_OK, 'publisher');
+            return $this->jsonOk($publisher, Response::HTTP_OK);
 
         } catch (NotFoundHttpException $e) {
             return $this->jsonError($e->getMessage(), Response::HTTP_NO_CONTENT);
