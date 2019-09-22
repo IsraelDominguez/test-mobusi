@@ -25,20 +25,20 @@ class Ad
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * @Groups({"ad"})
+     * @Groups({"ad","publisher"})
      */
     private $id;
 
     /**
      * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_rest", "ad"})
+     * @Groups({"publisher", "ad"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Advertiser", inversedBy="advertiser")
-     * @Groups({"ad"})
+     * @Groups({"ad","publisher"})
      */
     protected $advertiser;
 
@@ -180,5 +180,21 @@ class Ad
     {
         $this->status = $status;
         return $this;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'status' => $this->getStatus()
+        ];
     }
 }
