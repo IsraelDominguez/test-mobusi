@@ -12,13 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class Text extends Component implements AdComponentInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups({"ad"})
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=140)
@@ -37,24 +30,6 @@ class Text extends Component implements AdComponentInterface
     {
         parent::setEntityFromJson($json);
         $this->text = $json->text ?? null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return Text
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     /**

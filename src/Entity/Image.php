@@ -15,13 +15,7 @@ class Image extends Component implements AdComponentInterface
 
     use MediaComponentTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups({"ad"})
-     */
-    private $id;
+
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -45,23 +39,6 @@ class Image extends Component implements AdComponentInterface
         $this->mimeType = $json->mimetype ?? null;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return Image
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 
     /**
      * @return mixed

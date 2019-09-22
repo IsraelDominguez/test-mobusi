@@ -51,7 +51,8 @@ class PublishAd
             foreach ($publishers as $publisher) {
                 $ad->addPublisher($this->em->getReference('\App\Entity\Publisher', $publisher->id));
             }
-
+            //TODO: is necessary a PublishedAt Field
+            $ad->setUpdatedAt(new \DateTime("now"));
             $ad->setStatus(Ad::STATUS_PUBLISHED);
 
             $this->em->persist($ad);

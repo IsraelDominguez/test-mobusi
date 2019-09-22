@@ -17,23 +17,25 @@ class Publisher
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"ad"})
+     * @Groups({"publisher","ad"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"ad"})
+     * @Groups({"publisher","ad"})
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Ad", mappedBy="publishers")
+     * @Groups({"publisher"})
      */
     private $ads;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"publisher"})
      */
     private $createdAt;
 

@@ -21,6 +21,7 @@ abstract class Component implements AdComponentInterface
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups({"ad"})
      */
     private $id;
 

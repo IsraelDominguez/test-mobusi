@@ -16,14 +16,6 @@ class Video extends Component implements AdComponentInterface
     use MediaComponentTrait;
 
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups({"ad"})
-     */
-    private $id;
-
-    /**
      * @ORM\Column(type="string", length=30)
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Choice(choices={"mp4", "webm"}, message="MimeType must be 'mp4' or 'webm'")
@@ -43,24 +35,6 @@ class Video extends Component implements AdComponentInterface
         $this->path = $json->path ?? null;
         $this->size = $json->size ?? null;
         $this->mimeType = $json->mimetype ?? null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return Video
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     /**
