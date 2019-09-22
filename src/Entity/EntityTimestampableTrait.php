@@ -54,7 +54,6 @@ trait EntityTimestampableTrait
      */
     /** @ORM\PrePersist */
     function onPrePersist() {
-        //using Doctrine DateTime here
         $this->createdAt = new \DateTime();
     }
 
