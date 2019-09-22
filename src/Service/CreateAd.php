@@ -9,7 +9,6 @@ use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateAd
 {
@@ -18,8 +17,10 @@ class CreateAd
      */
     protected $ad;
 
+    /**
+     * @var LoggerInterface $logger
+     */
     private $logger;
-    private $request;
 
     /**
      * @var EntityManagerInterface $em
@@ -27,30 +28,31 @@ class CreateAd
     private $em;
 
     /**
-     * @var ValidatorInterface $validator
+     * @var ValidatorService $validator
      */
     private $validator;
 
-    public function __construct(RequestStack $requestStack, LoggerInterface $logger, EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(RequestStack $requestStack, LoggerInterface $logger, EntityManagerInterface $em, ValidatorService $validator)
     {
-        $this->request = json_decode($requestStack->getCurrentRequest()->getContent());
         $this->logger = $logger;
         $this->em = $em;
         $this->validator = $validator;
     }
 
-    public function invoke() : Ad
+    /**
+     * Json string decoded, from body content in an api request for example
+     *
+     * @param mixed|object $requestContent
+     * @return Ad
+     */
+    public function invoke($requestContent) : Ad
     {
         try {
-            // TODO: catch BadRequest Exception
             $this->ad = new Ad();
-            $this->ad->setName($this->request->name);
+            $this->ad->setName($requestContent->name);
             $this->ad->setStatus(Ad::STATUS_STOPPED);
-            $this->ad->setAdvertiser($this->em->getReference('\App\Entity\Advertiser', $this->request->advertiser));
-            $components = $this->request->components ?? null;
-
-            if ($components == null)
-                throw new InvalidArgumentException('Ads Component is mandatory');
+            $this->ad->setAdvertiser($this->em->getReference('\App\Entity\Advertiser', $requestContent->advertiser));
+            $components = $requestContent->components ?? [];
 
             foreach ($components as $component) {
                 $adComponent = AdComponentFactory::create($component->type);
@@ -58,12 +60,13 @@ class CreateAd
                 $adComponent->setEntityFromJson($component);
                 $adComponent->setAd($this->ad);
 
-                $errors = $this->validator->validate($adComponent);
-                if (count($errors) > 0)
-                    throw new InvalidArgumentException((string)$errors);
+                $this->validator->validate($adComponent);
 
                 $this->ad->addComponent($adComponent);
             }
+
+            $this->validator->validateAd($this->ad);
+
             $this->em->persist($this->ad);
             $this->em->flush();
 

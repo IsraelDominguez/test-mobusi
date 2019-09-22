@@ -3,10 +3,8 @@
 namespace App\Entity;
 
 use App\AdComponents\AdComponentInterface;
-use App\AdComponents\AdComponentTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ComponentRepository")

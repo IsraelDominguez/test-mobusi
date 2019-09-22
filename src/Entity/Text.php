@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\AdComponents\AdComponentInterface;
-use App\AdComponents\AdComponentTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,8 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Text extends Component implements AdComponentInterface
 {
-    use AdComponentTrait;
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
