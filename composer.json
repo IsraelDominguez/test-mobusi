@@ -7,7 +7,10 @@
     "symfony/orm-pack": "^1.0",
     "symfony/maker-bundle": "^1.13",
     "symfony/validator": "^4",
-    "doctrine/annotations": "^1.7"
+    "doctrine/annotations": "^1.7",
+    "symfony/monolog-bundle": "^3.4",
+    "symfony/serializer-pack": "^1.0",
+    "symfony/mime": "^4"
   },
   "require-dev": {
     "symfony/profiler-pack": "^1.0",
