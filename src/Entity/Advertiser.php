@@ -15,13 +15,13 @@ class Advertiser
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"api_rest"})
+     * @Groups({"api_rest","ad"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_rest"})
+     * @Groups({"api_rest", "ad"})
      */
     private $name;
 

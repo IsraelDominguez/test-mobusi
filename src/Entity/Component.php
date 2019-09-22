@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\AdComponents\AdComponentInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ComponentRepository")
@@ -27,6 +28,7 @@ abstract class Component implements AdComponentInterface
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("string")
      * @ORM\Column(type="string", length=255)
+     * @Groups({"ad"})
      */
     protected $name;
 
@@ -39,33 +41,37 @@ abstract class Component implements AdComponentInterface
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
      * @ORM\Column(type="float")
+     * @Groups({"ad"})
      */
     protected $posX;
     /**
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
      * @ORM\Column(type="float")
+     * @Groups({"ad"})
      */
     protected $posY;
     /**
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
      * @ORM\Column(type="float")
+     * @Groups({"ad"})
      */
     protected $posZ;
     /**
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
      * @ORM\Column(type="float")
+     * @Groups({"ad"})
      */
     protected $height;
     /**
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
      * @ORM\Column(type="float")
+     * @Groups({"ad"})
      */
     protected $width;
-
 
     public function setEntityFromJson($json)
     {

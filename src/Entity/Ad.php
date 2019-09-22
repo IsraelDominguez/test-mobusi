@@ -25,19 +25,20 @@ class Ad
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups({"ad"})
      */
     private $id;
 
     /**
      * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_rest"})
+     * @Groups({"api_rest", "ad"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Advertiser", inversedBy="advertiser")
-     *
+     * @Groups({"ad"})
      */
     protected $advertiser;
 
@@ -48,12 +49,14 @@ class Ad
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Component", mappedBy="ad", cascade={"persist"})
+     * @Groups({"ad"})
      */
     private $components;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"api_rest"})
+     * @Groups({"ad"})
      */
     private $status;
 

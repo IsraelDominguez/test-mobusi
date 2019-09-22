@@ -7,6 +7,7 @@ trait MediaComponentTrait
      * @Assert\Type("string")
      * @Assert\Url
      * @Assert\NotBlank(message="This field is required")
+     * @Groups({"ad"})
      */
     private $path;
 
@@ -14,6 +15,7 @@ trait MediaComponentTrait
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="This field is required")
      * @Assert\Type("int")
+     * @Groups({"ad"})
      */
     private $size;
 
