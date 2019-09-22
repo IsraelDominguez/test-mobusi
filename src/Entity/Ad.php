@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class Ad
 {
+    use EntityTimestampableTrait;
+
     const STATUS_PUBLISHED = 'published';
     const STATUS_STOPPED = 'stopped';
     const STATUS_PUBLISHING = 'publishing';
@@ -54,18 +56,6 @@ class Ad
      * @Groups({"api_rest"})
      */
     private $status;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"api_rest"})
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"api_rest"})
-     */
-    private $createdAt;
 
     public function __construct() {
         $this->publishers = new ArrayCollection();
@@ -186,58 +176,5 @@ class Ad
     {
         $this->status = $status;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param mixed $updatedAt
-     * @return Ad
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     * @return Ad
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-
-
-    /**
-     *
-     * Events
-     */
-    /** @ORM\PrePersist */
-    function onPrePersist() {
-        //using Doctrine DateTime here
-        $this->createdAt = new \DateTime();
-    }
-
-    /** @ORM\PreUpdate */
-    function onPreUpdate($args) {
-        $this->updateAt = new \DateTime();
     }
 }

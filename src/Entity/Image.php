@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Image extends Component implements AdComponentInterface
 {
 
-    use AdComponentTrait;
+    use MediaComponentTrait;
 
     /**
      * @ORM\Id()
@@ -23,27 +23,11 @@ class Image extends Component implements AdComponentInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=500)
-     * @Assert\Type("string")
-     * @Assert\Url
-     * @Assert\NotBlank(message="This field is required")
-     */
-    private $path;
-
-    /**
      * @ORM\Column(type="string", length=30)
      * @Assert\Choice(choices={"jpg", "png"}, message="MimeType must be 'jpg' or 'png'")
      * @Assert\NotBlank(message="This field is required")
      */
     private $mimeType;
-
-    /**
-     * @ORM\Column(type="float")
-     * @Assert\Type("long")
-     * @Assert\NotBlank(message="This field is required")
-     */
-    private $size;
-
 
     public function setEntityFromJson($json)
     {
@@ -75,24 +59,6 @@ class Image extends Component implements AdComponentInterface
     /**
      * @return mixed
      */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     * @return Image
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getMimeType()
     {
         return $this->mimeType;
@@ -105,24 +71,6 @@ class Image extends Component implements AdComponentInterface
     public function setMimeType($mimeType)
     {
         $this->mimeType = $mimeType;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param mixed $size
-     * @return Image
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
         return $this;
     }
 

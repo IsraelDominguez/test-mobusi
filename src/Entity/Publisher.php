@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publisher
 {
+    use EntityTimestampableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -109,7 +111,6 @@ class Publisher
         $this->createdAt = $createdAt;
         return $this;
     }
-
 
     /**
      *

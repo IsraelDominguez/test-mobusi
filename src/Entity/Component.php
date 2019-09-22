@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ComponentRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\HasLifecycleCallbacks
  */
 abstract class Component implements AdComponentInterface
 {
-
-    use AdComponentTrait;
+    use EntityTimestampableTrait;
 
     /**
      * @ORM\Id()
@@ -67,16 +67,6 @@ abstract class Component implements AdComponentInterface
      * @ORM\Column(type="float")
      */
     protected $width;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $createdAt;
 
 
     public function setEntityFromJson($json)
@@ -234,54 +224,4 @@ abstract class Component implements AdComponentInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param mixed $updatedAt
-     * @return Component
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     * @return Component
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     *
-     * Events
-     */
-    /** @ORM\PrePersist */
-    function onPrePersist() {
-        //using Doctrine DateTime here
-        $this->createdAt = new \DateTime();
-    }
-
-    /** @ORM\PreUpdate */
-    function onPreUpdate($args) {
-        $this->updateAt = new \DateTime();
-    }
 }
