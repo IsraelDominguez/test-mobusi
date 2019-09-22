@@ -4,7 +4,9 @@ namespace App\Service;
 
 use App\AdComponents\AdComponentInterface;
 use App\Entity\Ad;
+use App\Exceptions\InvalidStatusException;
 use Psr\Log\InvalidArgumentException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidatorService
@@ -28,6 +30,11 @@ class ValidatorService
             throw new InvalidArgumentException('Ads Component is mandatory');
 
         $this->checkErrors($this->validator->validate($ad));
+    }
+
+    public function checkAdCanBePublished(Ad $ad) {
+        if ($ad->getStatus() != Ad::STATUS_STOPPED)
+            throw new InvalidStatusException('Ad must be stopped to Publish');
     }
 
     private function checkErrors($errors) {

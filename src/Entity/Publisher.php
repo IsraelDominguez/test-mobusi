@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PublisherRepository")
@@ -11,24 +12,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publisher
 {
-    use EntityTimestampableTrait;
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"ad"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"ad"})
      */
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Ad", inversedBy="publisherAds")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Ad", mappedBy="publishers")
      */
-    private $publisherAds;
+    private $ads;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -37,7 +39,7 @@ class Publisher
 
     public function __construct()
     {
-        $this->publisherAds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ads = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -77,21 +79,18 @@ class Publisher
     }
 
     /**
-     * @return  \Doctrine\Common\Collections\Collection
+     * @param Ad $ad
      */
-    public function getPublisherAds():  \Doctrine\Common\Collections\Collection
-    {
-        return $this->publisherAds;
+    public function addAd(Ad $ad) {
+        $this->ads[] = $ad;
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $publisherAds
-     * @return Publisher
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setPublisherAds(Ad $ad): Publisher
+    public function getAds(): \Doctrine\Common\Collections\Collection
     {
-        $this->publisherAds->add($ad);
-        return $this;
+        return $this->ads;
     }
 
     /**

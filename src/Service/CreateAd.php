@@ -32,7 +32,7 @@ class CreateAd
      */
     private $validator;
 
-    public function __construct(RequestStack $requestStack, LoggerInterface $logger, EntityManagerInterface $em, ValidatorService $validator)
+    public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ValidatorService $validator)
     {
         $this->logger = $logger;
         $this->em = $em;

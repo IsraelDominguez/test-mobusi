@@ -43,7 +43,9 @@ class Ad
     protected $advertiser;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Publisher", mappedBy="publishers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Publisher", inversedBy="ads")
+     * @ORM\JoinTable(name="publisher_ad")
+     * @Groups({"ad"})
      */
     private $publishers;
 
@@ -128,13 +130,12 @@ class Ad
     }
 
     /**
-     * @param ArrayCollection $publishers
-     * @return Ad
+     * @param Publisher $publisher
      */
-    public function setPublishers(ArrayCollection $publishers): Ad
+    public function addPublisher(Publisher $publisher)
     {
-        $this->publishers = $publishers;
-        return $this;
+        $publisher->addAd($this); // synchronously updating inverse side
+        $this->publishers[] = $publisher;
     }
 
     /**
