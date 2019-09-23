@@ -19,22 +19,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sunmedia`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `publisher`
---
-
-CREATE TABLE `publisher` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
 -- Volcado de datos para la tabla `publisher`
 --
 
