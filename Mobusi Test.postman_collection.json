@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "0d3eb288-9343-4573-aa0b-a22448e6e8ca",
+		"name": "Mobusi Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Publisher",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/publisher/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"publisher",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Advertiser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/advertiser/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"advertiser",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ad",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"otro Anuncio\",\n\t\"advertiser\": 1,\n\t\"components\": [\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"path\": \"http://www.unaimage.com/test\",\n\t\t\t\"mimetype\": \"jpg\",\n\t\t\t\"size\": 234323,\n\t\t\t\"name\": \"otro nombre 2\",\n\t\t\t\"posX\": 3232,\n\t\t\t\"posY\": 32,\n\t\t\t\"posZ\": 434,\n\t\t\t\"height\": 323,\n\t\t\t\"width\": 23\n\t\t},\n\t\t{\n\t\t\t\"type\": \"text\",\n\t\t\t\"text\": \"El texto de no más de 140\",\n\t\t\t\"name\": \"un nombre de componente 3\",\n\t\t\t\"posX\": 3232,\n\t\t\t\"posY\": 32,\n\t\t\t\"posZ\": 434,\n\t\t\t\"height\": 322,\n\t\t\t\"width\": 23\n\t\t},\n\t\t{\n\t\t\t\"type\": \"video\",\n\t\t\t\"path\": \"http://www.unaimage.com/test\",\n\t\t\t\"mimetype\": \"mp4\",\n\t\t\t\"size\": 234323,\n\t\t\t\"name\": \"otro nombre 2\",\n\t\t\t\"posX\": 3232,\n\t\t\t\"posY\": 32,\n\t\t\t\"posZ\": 434,\n\t\t\t\"height\": 323,\n\t\t\t\"width\": 23\n\t\t},\n\t\t{\n\t\t\t\"type\": \"video\",\n\t\t\t\"path\": \"http://www.unaimage.com/test\",\n\t\t\t\"mimetype\": \"mp4\",\n\t\t\t\"size\": 234323,\n\t\t\t\"name\": \"otro nombre 2\",\n\t\t\t\"posX\": 3232,\n\t\t\t\"posY\": 32,\n\t\t\t\"posZ\": 434,\n\t\t\t\"height\": 323,\n\t\t\t\"width\": 23\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/ad/1dds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"ad",
+						"1dds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish Ad",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"publishers\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/ad/publish/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"ad",
+						"publish",
+						"16"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
